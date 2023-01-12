@@ -3,7 +3,7 @@ import java.util.*;
 
 public class B1764 {
     //집합과 맵
-    public static void B1764(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
@@ -23,7 +23,6 @@ public class B1764 {
         }
 
         notlisten.retainAll(notlook); //교집합
-        notlisten.stream().sorted();
 
         //개수
         System.out.println(notlisten.size());
