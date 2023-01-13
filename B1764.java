@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class B1764 {
-    //집합과 맵
+    //집합과 맵 - 듣보잡
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
