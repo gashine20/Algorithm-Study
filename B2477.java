@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 public class B2477 {
     //기하1 - 참외밭
-    //(가로 max * 세로 max) - (가로 min * 세로 min)
+    //
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -15,8 +15,9 @@ public class B2477 {
 
         int wmax, wmin, hmax, hmin;
         int area = 0;
-        ArrayList<Integer> width = new ArrayList<Integer>();
-        ArrayList<Integer> height = new ArrayList<Integer>();
+        int[] width = new int[2];
+        int[] height = new int[2];
+
 
         for (int i = 0; i < 6; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
@@ -24,26 +25,42 @@ public class B2477 {
             // 1:동쪽, 2:서쪽, 3:남쪽, 4:북쪽
             int len = Integer.parseInt(st.nextToken()); //최대 최소
 
-            if (direct == 1 || direct == 2) {
-                width.add(len);
-            } else if (direct == 3 || direct == 4) {
-                height.add(len);
+            if (direct == 1) { //동
+                width[0] += len;
+            }
+            if (direct == 2) { //서
+                width[1] += len;
+            }
+            if (direct == 3) { //남
+                height[0] += len;
+            }
+            if (direct == 4) { //북
+                height[1] += len;
             }
         }
 
-        //내림차순 - 최대
-        Collections.sort(width, Collections.reverseOrder());
-        wmax = width.get(0);
-        Collections.sort(height, Collections.reverseOrder());
-        hmax = height.get(0);
+        //w
+        if (width[0] > width[1]) {
+            wmax = width[0];
+            wmin = width[1];
+        } else {
+            wmax = width[0];
+            wmin = width[1];
+        }
 
-        //오름차순 - 최소
-        Collections.sort(width);
-        wmin = width.get(0);
-        Collections.sort(height);
-        hmin = height.get(0);
+        //h
+        if (height[0] > height[1]) {
+            hmax = height[0];
+            hmin = height[1];
+        } else {
+            hmax = height[0];
+            hmin = height[1];
+        }
 
-        area = ((wmax * hmax) - (wmin * hmin)) * K;
+        if (wmax == wmin || hmax == hmin)
+            area = wmax * hmax * K;
+        else
+            area = ((wmax * hmax) - (wmin * hmin)) * K;
         System.out.println(area);
     }
 }
