@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 public class B2477 {
     //기하1 - 참외밭
     //(가로 max * 세로 max) - (가로 min * 세로 min) .. 틀림
+    //최대&최소를 찾을 필요가 없어
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -51,18 +52,18 @@ public class B2477 {
                 last = direct;
             }
         }
-        
+
         //내림차순 - 최대
-        Collections.sort(width, Collections.reverseOrder());
+        //Collections.sort(width, Collections.reverseOrder());
         wmax = width.get(0);
-        Collections.sort(height, Collections.reverseOrder());
+        //Collections.sort(height, Collections.reverseOrder());
         hmax = height.get(0);
 
         //오름차순 - 최소
-        Collections.sort(width);
-        wmin = width.get(0);
-        Collections.sort(height);
-        hmin = height.get(0);
+        //Collections.sort(width);
+        wmin = width.get(height.size()-2);
+        //Collections.sort(height);
+        hmin = height.get(height.size()-1);
 
         if (wmax == wmin || hmax == hmin)
             area = wmax * hmax * K;
