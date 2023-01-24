@@ -13,7 +13,7 @@ public class B1002 {
         int[] pcount = new int[T];
 
         for (int i = 0; i < T; i++) {
-            int dist = 0, r_dist = 0, rmax = 0, rmin = 0;
+            int dist, rd_dist, rs_dist;
 
             StringTokenizer st = new StringTokenizer(br.readLine());
             int x1 = Integer.parseInt(st.nextToken());
@@ -23,43 +23,31 @@ public class B1002 {
             int y2 = Integer.parseInt(st.nextToken());
             int r2 = Integer.parseInt(st.nextToken());
 
-            //반지름 큰거 찾기
-            if (r1 > r2) {
-                rmax = r1;
-                rmin = r2;
-            } else {
-                rmax = r2;
-                rmin = r1;
-            }
-
             dist = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
-            r_dist = (r1 + r2) * (r1 + r2);
+            rd_dist = (r1 - r2) * (r1 - r2); //차
+            rs_dist = (r1 + r2) * (r1 + r2); //합
 
             if (x1 == x2 && y1 == y2) {//중심이 같고 반지름이 다를 때 고려
-                if (r1 == r2)
+                if (r1 == r2) //무한대
                     pcount[i] = -1;
                 else
                     pcount[i] = 0;
-            } else if (dist < rmin) { //내접
-                if (dist + rmin == rmax)
-                    pcount[i] = 1;
-                else if (dist + rmin > rmax)
-                    pcount[i] = 2;
-                else pcount[i] = 0;
-            } else{ //외접
-                if (dist > r_dist)
-                    pcount[i] = 0;
-                else if (dist == r_dist)
-                    pcount[i] = 1;
-                else
-                    pcount[i] = 2;
+            } else if (dist == rd_dist) { //내접 1
+                pcount[i] = 1;
+            } else if (dist == rs_dist) { //외접 1
+                pcount[i] = 1;
+            } else if (dist < rd_dist) { //내접 0
+                pcount[i] = 0;
+            } else if (dist > rs_dist) { //외접 0
+                pcount[i] = 0;
+            } else {
+                pcount[i] = 2;
             }
-
 
         }
 
-        for (int i = 0; i < pcount.length; i++) {
-            System.out.println(pcount[i]);
+        for (int j : pcount) {
+            System.out.println(j);
         }
     }
 }
