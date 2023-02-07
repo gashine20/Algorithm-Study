@@ -8,7 +8,7 @@ public class B1010 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int T= Integer.parseInt(br.readLine()); //테스트 개수
+        int T = Integer.parseInt(br.readLine()); //테스트 개수
         int[] array = new int[T];
 
         for(int i=0;i<T;i++){
@@ -16,10 +16,10 @@ public class B1010 {
             int N = Integer.parseInt(st.nextToken());
             int M = Integer.parseInt(st.nextToken());
             int NN=1,MM=1;
-            for(int j=1;j<=N;j++){
+            for(int j=N;j>=1;j--){
                 NN*=j;
             }
-            for(int j=1;j<=M;j++){
+            for(int j=M;j>=M-N+1;j--){
                 MM*=j;
             }
             array[i] = MM/NN;
