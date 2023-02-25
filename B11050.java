@@ -14,12 +14,21 @@ public class B11050 {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
-        for(int i=N-1;i>=N-K;i--){
-            N*=i;
-        }
-        for(int i=K-1;i>=1;i--){
-            K*=i;
-        }
+        combination(N,K);
+        //On^2
+//        for(int i=N-1;i>=N-K;i--){
+//            N*=i;
+//        }
+//        for(int i=K-1;i>=1;i--){
+//            K*=i;
+//        }
         System.out.println(N/K);
+    }
+
+    public static int combination(int N, int K){
+        if(N==K || N==1){
+            return 1;
+        }
+        return combination(N-1,K-1) + combination(N-1,K);
     }
 }
