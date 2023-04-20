@@ -35,16 +35,21 @@
 
 
 # 10809 알파벳 찾기
-S = input()
+# S = input()
+#
+# alpa = [-1 for _ in range(26)]
+#
+# # 아스키 코드 97~122
+# for i in range(len(S)):
+#     code = ord(S[i])  # 97
+#     # print(code)
+#     if alpa[int(code) - 97] == -1:
+#         alpa[int(code) - 97] = i
+#
+# for i in range(26):
+#     print(alpa[i], end=' ')
 
-alpa = [-1 for _ in range(26)]
 
-# 아스키 코드 97~122
-for i in range(len(S)):
-    code = ord(S[i])  # 97
-    # print(code)
-    if alpa[int(code) - 97] == -1:
-        alpa[int(code) - 97] = i
-
-for i in range(26):
-    print(alpa[i], end=' ')
+#1152 단어의 개수
+word = input().split()
+print(len(word))
