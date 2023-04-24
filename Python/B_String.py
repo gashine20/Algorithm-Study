@@ -50,6 +50,15 @@
 #     print(alpa[i], end=' ')
 
 
-#1152 단어의 개수
-word = input().split()
-print(len(word))
+# 1152 단어의 개수
+# word = input().split()
+# print(len(word))
+
+# 11718 그대로 출력하기
+
+while True:
+    try:
+        print(input())
+    except EOFError:
+        break
+
