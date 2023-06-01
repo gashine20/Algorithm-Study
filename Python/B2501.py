@@ -5,7 +5,7 @@ N, K = map(int, input().split())
 index = 0
 number = []
 for i in range(1, N + 1):
-    if (N % i == 0):
+    if N % i == 0:
         number.append(i)
         index = index + 1
 
