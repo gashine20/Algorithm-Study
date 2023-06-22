@@ -1,9 +1,9 @@
 # 소수
 
-def PrimeNum(a):
+def PrimeNum(a): # 소수인지 아닌지 
     if a == 1 : return 0
     for i in range(2,int(a/2)+1):
-        if(a % i == 0): #약수
+        if(a % i == 0): #약수 있는 경우
             return 0
     
     else: return 1
