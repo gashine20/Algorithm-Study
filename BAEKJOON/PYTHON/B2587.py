@@ -6,8 +6,8 @@ for _ in range(5):
     a.append(b)
 
 a.sort()
-
 sum = 0
+
 for i in a:
     sum += i
 
