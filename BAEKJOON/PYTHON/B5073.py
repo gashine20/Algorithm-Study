@@ -8,7 +8,7 @@ while True:
     line = [a,b,c]
     line.sort()
 
-    if a+b <= c:
+    if line[0]+line[1] <= line[2]:
         print("Invalid")
     else:
         if a == b == c: # 세 변의 길이가 모두 같은 경우
