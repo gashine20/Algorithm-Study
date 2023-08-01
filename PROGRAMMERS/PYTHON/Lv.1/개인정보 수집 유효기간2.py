@@ -16,6 +16,8 @@ def solution(today, terms, privacies):
         term[a] = b
 
     index = 1
+
+    # 계산
     for privacy in privacies:
         start, term_type = privacy.split(" ")
         start_cal = calculateDay(start)
