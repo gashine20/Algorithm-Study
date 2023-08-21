@@ -1,3 +1,4 @@
+# 시간초과
 def solution(players, callings):
     for i in callings:
         # 해당 이름 찾아서 index return
