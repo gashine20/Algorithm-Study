@@ -4,9 +4,12 @@ def solution(ingredient):
     # 스택 써야될거 같은데
     stack = []
 
-    for i in range(len(ingredient)):
-        if i > 4:
-            print(ingredient[i-4:i])
+    for i in ingredient:
+        stack.append(i)
 
+        if len(stack) > 3:
+            if (stack[-4:] == [1, 2, 3, 1]):
+                answer += 1
+                del stack[-4:]
 
     return answer
