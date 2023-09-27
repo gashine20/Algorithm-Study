@@ -56,4 +56,11 @@
 [4,6,7]을 이용해서 17을 만들 수 있습니다.</p>
 
 
+* 소수 찾기
+  math.sqrt() -> 제곱근
+
+* 조합
+  list(itertools.combinations(num,3)) -> list 형태로 3개를 골라 조합
+
+
 > 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
