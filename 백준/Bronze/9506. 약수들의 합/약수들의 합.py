@@ -1,19 +1,23 @@
-# 약수들의 합
-
 while True:
-    a = int(input())
-    if (a == -1): break
-    
-    num = []
-    for i in range(1,a):
-        if(a % i ==0):
-            num.append(i)
+    n = int(input())
+    if n == -1:
+        break
 
-    sum = 0
-    for i in num:
-        sum += i
-    if(sum == a):
-        print(a, "=", end =" ")
-        print(*num, sep=" + ")
+    divisor = []
+    for i in range(1, n):
+        if n % i == 0:
+            divisor.append(i)
+
+    divSum = 0
+    for j in divisor:
+        divSum += j
+
+    if divSum == n:
+        print(n, "=", end=" ")
+        for k in divisor:
+            if k == divisor[len(divisor) - 1]:
+                print(k)
+            else:
+                print(k, "+", end=" ")
     else:
-        print(a,"is NOT perfect.")
+        print(n, "is NOT perfect.")
