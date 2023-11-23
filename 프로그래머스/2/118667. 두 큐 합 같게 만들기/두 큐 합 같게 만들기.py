@@ -49,7 +49,7 @@ def solution(queue1, queue2):
 #         return -1
     
 #     goal_sum = int(total_sum/2)
-#     limit_move = total_sum * 2
+#     limit_move = len(queue1) * 4
     
 #     move = 0
 #     while sum(queue1)!= goal_sum and sum(queue2)!= goal_sum:
