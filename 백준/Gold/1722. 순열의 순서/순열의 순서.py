@@ -1,51 +1,51 @@
-import math
+# 조합
 
+import sys
 
-def find_one(n, k):
-    if len(answer) == N - 1:
-        answer.append(numbers[-1])
-        return
+input = sys.stdin.readline
 
-    numberOfCases = math.factorial(n) // n
-    sequence = math.ceil(k / numberOfCases)
-    answer.append(numbers.pop(sequence))
+F = [0] * 21  # 팩토리얼 정보
+S = [0] * 21  # 실제 자리 수
 
-    find_one(n-1, k-(numberOfCases*(sequence-1)))
+visited = [False] * 21
+N = int(input())
 
+F[0] = 1
 
-def find_k():
-    n = N
-    for num in K:
-        numberOfCases = math.factorial(n) // n
-        idx = numbers.index(num)
-        if len(numbers) == 2:
-            idx += 1
-            answer.append(numberOfCases*idx)
-            return
-        numbers.pop(idx)
-        answer.append(numberOfCases*idx)
-        n -= 1
+for i in range(1, N + 1):
+    F[i] = F[i - 1] * i
 
+inputList = list(map(int, input().split()))
 
-if __name__ == "__main__":
-    N = int(input())
-    tmp_input = list(map(int, input().split()))
-    order = tmp_input.pop(0)
+if inputList[0] == 1:
+    K = inputList[1]
 
-    # 소문제 1
-    if order == 1:
-        K = tmp_input[0]
-        numbers = [x for x in range(N+1)]
-        answer = []
-        find_one(N,K)
-        print(' '.join(list(map(str, answer))))
+    for i in range(1, N + 1):
+        cnt = 1
 
-    # 소문제 2
-    else:
-        K = tmp_input
-        numbers = [x for x in range(1, N+1)]
-        answer = []
-        find_k()
-        print(sum(answer))
-        
-        
+        for j in range(1, N + 1):
+            # print("i = ", i, " j = ", j, " cnt = ", cnt, " F[N-i] = ", F[N - i])
+            # print(K, "<=", cnt, "*", F[N - i])
+            if visited[j]:
+                continue
+            if K <= cnt * F[N - i]:
+                # print(K, "<=", cnt, "*", F[N - i])
+                K -= (cnt - 1) * F[N - i]
+                S[i] = j
+                visited[j] = True
+                break
+            cnt += 1
+    for i in range(1, N + 1):
+        print(S[i])
+
+else:
+    K = 1
+    for i in range(1, N + 1):
+        cnt = 0
+        for j in range(1, inputList[i]):
+            if not visited[j]:
+                cnt += 1  # 미사용 숫자 개수만큼 카운트
+        K += cnt * F[N - i]  # 자릿수에 따라 순서 더하기
+        visited[inputList[i]] = True
+
+    print(K)
