@@ -1,33 +1,46 @@
-letter = list(map(str, input()))
+import sys
 
-print(letter)
+input = sys.stdin.readline
 
-bracket = '()'
-sqBracket = '[]'
+bracket = list(map(str, input()))
 
-word = letter.pop()
-sum = 0
-bundle = 1
+stack = []  # 스택
+res = 1  # result에 더해주기 전 임시 변수
+result = 0  # 결과 변수
 
-while letter:
-    next = letter.pop()
-    if bracket in next + word:
-        print(next + word)
-        word = word[1:len(word)]
-        bundle *= 2
-        print("bundle =", bundle, "sum =", sum)
+# 열린 괄호만 스택에 넣고, 닫힌 괄호를 만나면 스택의 top을 꺼내 쌍을 맞춤
+# 열린 괄호로 2,3 곱하기 계산
 
-    elif sqBracket in next + word:
-        print(next + word)
-        word = word[1:len(word)]
-        bundle *= 3
-        print("bundle =", bundle, "sum =", sum)
+# 1~4번째 과정 시작
+for i in range(len(bracket)):
+    if bracket[i] == '(':
+        res *= 2
+        stack.append(bracket[i])
 
-    else:
-        word = next + word
+    elif bracket[i] == '[':
+        res *= 3
+        stack.append(bracket[i])
 
-    if word == '':
-        sum += bundle
-        bundle = 1
+    elif bracket[i] == ')':
+        if not stack or stack[-1] != '(':
+            result = 0
+            break
+        if bracket[i - 1] == '(':
+            result += res
+        res //= 2
+        stack.pop()
 
-    # print(next)
+    elif bracket[i] == ']':
+        if not stack or stack[-1] != '[':
+            result = 0
+            break
+        if bracket[i - 1] == '[':
+            result += res
+        res //= 3
+        stack.pop()
+
+# 결과 출력
+if stack:
+    print(0)
+else:
+    print(result)
