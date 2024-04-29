@@ -1,31 +1,32 @@
-# DFS
+# 11724 연결 요소의 개
 import sys
-sys.setrecursionlimit(10**6) # 추가
+
+sys.setrecursionlimit(10000)
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
 
-arr = [[] for _ in range(N + 1)]
+node = [[] for _ in range(N + 1)]
 visited = [False] * (N + 1)
-
-
-def DFS(v):
-    visited[v] = True
-    for a in arr[v]:
-        if not visited[a]:
-            DFS(a)
-
 
 for _ in range(M):
     u, v = map(int, input().split())
-    arr[u].append(v)
-    arr[v].append(u)
-#print(arr)
+    node[u].append(v)
+    node[v].append(u)
 
-count = 0
+
+# dfs - 깊이 탐색
+def dfs(start):
+    visited[start] = True
+    for next in node[start]:
+        if not visited[next]:
+            dfs(next)
+
+
+answer = 0
 for i in range(1, N + 1):
     if not visited[i]:
-        DFS(i)
-        count += 1
+        dfs(i)
+        answer += 1
 
-print(count)
+print(answer)
