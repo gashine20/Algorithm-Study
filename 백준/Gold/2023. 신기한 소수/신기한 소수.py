@@ -1,32 +1,31 @@
-import sys
-
-sys.setrecursionlimit(10000)
-input = sys.stdin.readline
+# 신기한 소수
+import math
 
 N = int(input())
+prime = [2, 3, 5, 7]
 
-count = 1
 
+def isPrime(num):
+    if num == 1:
+        return False
+    if num == 2:
+        return True
 
-def isPrime(number):
-    for i in range(2, int(number / 2 + 1)):
-        if number % i == 0:
+    for i in range(2, int(math.sqrt(num)) + 1):
+        if num % i == 0:
             return False
+
     return True
 
 
-def DFS(number):
-    if len(str(number)) == N:
-        print(number)
-
-    for i in range(1, 10):
-        if (number * 10 + i) % 2 == 0:
-            continue
-        if isPrime(number * 10 + i):
-            DFS(number * 10 + i)
+def dfs(n):  # 시작 수
+    if len(str(n)) == N:
+        print(n)
+    else:
+        for i in range(1, 10, 2):
+            if isPrime(10 * n + i):
+                dfs(10 * n + i)
 
 
-DFS(2)
-DFS(3)
-DFS(5)
-DFS(7)
+for i in prime:
+    dfs(i)
