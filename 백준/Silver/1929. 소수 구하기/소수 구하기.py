@@ -1,20 +1,24 @@
 import math
 
-# 에라토스테네스 체 알고리즘
+m, n = map(int, input().split())
+
+def Prime(n):
+    arr = [True] * (n + 1)
+    arr[0] = False
+    arr[1] = False
+    
+    for i in range(2, int(math.sqrt(n))+1):
+        j = 2
+        if arr[i]:
+            while i * j <= n:
+                arr[i * j] = False
+                j += 1
+                
+    return arr
 
 
-M, N = map(int, input().split())
-A = [0] * (N + 1)
+arr = Prime(n)
 
-for i in range(2, N + 1):
-    A[i] = i
-
-for i in range(2, int(math.sqrt(N)) + 1):
-    if A[i] == 0:
-        continue
-    for j in range(i + i, N + 1, i):
-        A[j] = 0
-
-for i in range(M, N + 1):
-    if A[i] != 0:
-        print(A[i])
+for i in range(m, n + 1):
+    if arr[i]:
+        print(i)
