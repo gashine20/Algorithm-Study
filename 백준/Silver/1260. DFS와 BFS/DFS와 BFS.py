@@ -17,8 +17,9 @@ for _ in range(M):
     node[s].append(e)
     node[e].append(s)
 
-    node[s].sort()
-    node[e].sort()
+for i in range(1, N + 1):
+    node[i].sort()
+
 
 def dfs(start):
     print(start, end=" ")
@@ -27,6 +28,7 @@ def dfs(start):
     for next in node[start]:
         if not visited[next]:
             dfs(next)
+
 
 def bfs(start):
     visited[start] = True
