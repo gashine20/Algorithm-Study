@@ -1,40 +1,45 @@
+import sys
 from collections import deque
 
-dx = [0, 1, 0, -1]
-dy = [1, 0, -1, 0]
+input = sys.stdin.readline
 
-N, M = map(int, input().split(" "))
-# A: 데이터 저장 2차원 행렬
-# visited: 방문 기록 저장 리스트
+n, m = map(int, input().split())
 
-maze = [[0] * M for _ in range(N)]
-visited = [[False] * M for _ in range(N)]
+A = [[] for _ in range(n)]
+visited = [[False for _ in range(m)] for _ in range(n)]
 
-for i in range(N):
-    numbers = list(input())
-    for j in range(M):
-        maze[i][j] = int(numbers[j])
+for i in range(n):
+    A[i] = list(map(int, input().strip()))
 
+myqueue = deque()
 
-def BFS(i, j):
-    queue = deque()
-    queue.append((i, j))
-    visited[i][j] = True
-
-    while queue:
-        now = queue.popleft()
-        # 상하좌우 확인
-        for k in range(4):
-            x = now[0] + dx[k]
-            y = now[1] + dy[k]
-
-            if 0 <= x < N and 0 <= y < M:
-                if maze[x][y] != 0 and not visited[x][y]:
-                    # visited, queue 추가
-                    visited[x][y] = True
-                    queue.append((x, y))
-                    maze[x][y] = maze[now[0]][now[1]] + 1
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
 
 
-BFS(0, 0)
-print(maze[N - 1][M - 1])
+def printA():
+    for i in A:
+        print(i)
+    print()
+
+
+def bfs(a, b):
+    myqueue.append((a, b))
+    visited[a][b] = True
+
+    while myqueue:
+        x, y = myqueue.popleft()
+
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < n and 0 <= ny < m:
+                if A[nx][ny] != 0 and visited[nx][ny] == False:
+                    A[nx][ny] = A[x][y] + 1
+                    visited[nx][ny] = True
+                    myqueue.append((nx, ny))
+
+    #printA()
+
+bfs(0, 0)
+print(A[n - 1][m - 1])
