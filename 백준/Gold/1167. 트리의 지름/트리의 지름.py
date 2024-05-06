@@ -1,53 +1,46 @@
-import sys
+# 트리의 지름
+
 from collections import deque
+import sys
 
-sys.setrecursionlimit(100000)
 input = sys.stdin.readline
-
 V = int(input())
 
-direction = [[] for _ in range(V + 1)]
+graph = [[] for _ in range(V + 1)]
 visited = [False] * (V + 1)
-distance = [0] * (V + 1)
 
 for _ in range(V):
-    information = list(map(int, input().split()))
-    start = information[0]
-    for i in range(1, len(information) - 1, 2):
-        end = information[i]
-        d = information[i + 1]
-        direction[start].append((end, d))
+    inputList = list(map(int, input().split(' ')))
+    s = inputList[0]
 
-answer = 0
+    for i in range(1, len(inputList) - 2, 2):
+        graph[s].append((inputList[i], inputList[i + 1]))
 
 
-def BFS(number):
-    queue = deque()
+def bfs(start, distance):
+    myque = deque()
 
-    queue.append(number)
-    visited[number] = True
+    visited[start] = True
+    myque.append((start, distance))
 
-    while queue:
-        now = queue.popleft()
+    res = [0, 0]
 
-        for next, d in direction[now]:
+    while myque:
+        now, ndistance = myque.popleft()
+        if res[1] < ndistance:
+            res[1] = ndistance
+            res[0] = now
+
+        for next, dis in graph[now]:
             if not visited[next]:
-                queue.append(next)
                 visited[next] = True
-                distance[next] = distance[now] + d
-                # print("now =", now, "next =", next, "distance[next] =", distance[next])
+                myque.append((next, ndistance + dis))
+
+    return res
 
 
-BFS(1)  # distance 초기화
-Max = 1
-
-for i in range(2, V + 1):
-    if distance[Max] < distance[i]:
-        Max = i  # 거리 리스트값 중 Max값으로 시작점 재설정
-
-distance = [0] * (V + 1)
+far_edge, _ = bfs(2, 0)
 visited = [False] * (V + 1)
-BFS(Max)
-distance.sort()
+_, answer = bfs(far_edge, 0)
 
-print(distance[V])
+print(answer)
