@@ -1,0 +1,33 @@
+# 기타 레슨
+
+N, M = map(int, input().split())
+lecture = list(map(int, input().split(' ')))
+
+start = 0
+end = 0
+
+for i in range(N):
+    if start < lecture[i]:  # 강의 길이가 가장 긴것
+        start = lecture[i]
+    end += lecture[i]  # 강의 길이의 총합
+
+while start <= end:
+    middle = int((start + end) / 2)
+    count = 0
+    sum = 0
+
+    for i in range(N):
+        if sum + lecture[i] > middle:
+            count += 1
+            sum = 0  # 초기화
+        sum += lecture[i]
+
+    if sum != 0:
+        count += 1
+
+    if count > M:
+        start = middle + 1
+    else:
+        end = middle - 1
+
+print(start)
