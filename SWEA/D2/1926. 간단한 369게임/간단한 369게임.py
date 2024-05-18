@@ -38,29 +38,19 @@ print(f)                                문자열 1개 출력하는 예제
 #import sys
 #sys.stdin = open("input.txt", "r")
 
-T = int(input())
-# 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
+N = int(input())
+clap = ['3', '6', '9']
 
-def count_three(a : int):
-    # 369
-    b = str(a)
-    a_array = list(b)
-    
-    count = 0
-    for num in a_array:
-        if int(num) == 0:
-            continue
-        if int(num) % 3 == 0:
-            count +=1
-	
-    return count
-    
-for test_case in range(1, T + 1):
-    count = count_three(test_case)
-    
-    if count == 0:
-        print(test_case, end=" ")
-    else:
-        for i in range(count):
+for i in range(1, N + 1):
+    word = str(i)
+    clap_count = 0
+    for j in clap:
+        clap_count += word.count(j)
+
+    if clap_count:
+        for _ in range(clap_count):
             print("-", end="")
-        print(end= " ")
+
+        print(end=" ")
+    else:
+        print(word, end=" ")
