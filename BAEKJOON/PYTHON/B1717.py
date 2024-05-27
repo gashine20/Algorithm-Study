@@ -20,7 +20,8 @@ def findParent(num):
     return A[num]
 
 
-for _ in range(m):
+
+for i in range(m):
     kind, a, b = map(int, input().split())
     parent1 = findParent(a)
     parent2 = findParent(b)
