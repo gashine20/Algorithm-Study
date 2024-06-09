@@ -1,49 +1,44 @@
+# 최소비용 구하기
 import sys
 from queue import PriorityQueue
 
 input = sys.stdin.readline
 
-N = int(input())
-M = int(input())
+N = int(input())  # 도시의 개수
+M = int(input())  # 버스의 개수
 
 graph = [[] for _ in range(N + 1)]
+distance = [sys.maxsize] * (N + 1)
 visited = [False] * (N + 1)
+myqueue = PriorityQueue()
 
 for _ in range(M):
-    a, b, cost = map(int, input().split())
-    graph[a].append((b, cost))  # 방향 있음 유의!
+    s, e, w = map(int, input().split())
+    graph[s].append((e, w))
 
-start, end = map(int, input().split())
-# print(graph)
+start, end = map(int, input().split())  # 출발 도시, 도착 도시
 
-distance = [sys.maxsize] * (N + 1)
-queue = PriorityQueue()
 
-queue.put((0, start))
-distance[start] = 0
+def dikstra(s):
+    distance[s] = 0
+    myqueue.put((0, s))
 
-while queue.qsize() > 0:
-    current = queue.get()
+    while myqueue.qsize() > 0:
+        now = myqueue.get()
+        now_node = now[1]
 
-    current_node = current[1]
-
-    if visited[current_node]:
-        continue
-
-    visited[current_node] = True
-
-    for tmp in graph[current_node]:
-        next = tmp[0]  # 노드
-        value = tmp[1]  # 거리
-
-        if visited[next]:
+        if visited[now_node]:
             continue
 
-        if distance[next] > distance[current_node] + value:
-            distance[next] = distance[current_node] + value
+        visited[now_node] = True
+        for next, weight in graph[now_node]:
+            if visited[next]:
+                continue
 
-            queue.put((distance[next], next))
+            if distance[next] > distance[now_node] + weight:
+                distance[next] = distance[now_node] + weight
+                myqueue.put((distance[next], next))
 
-            # print("current_node:", current_node, "next:", next, distance)
 
+dikstra(start)
 print(distance[end])
