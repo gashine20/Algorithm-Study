@@ -1,42 +1,41 @@
-# 위상 정렬
+# 게임 개발
 from collections import deque
+import sys
+
+input = sys.stdin.readline
 
 N = int(input())
-
+D = [0] * (N + 1)
 building = [[] for _ in range(N + 1)]
-cost = [0] * (N + 1)
-indegree = [0] * (N + 1)
+answer = [0] * (N + 1)
+buildTime = [0] * (N + 1)
 
 for i in range(1, N + 1):
-    inputList = list(map(int, input().split(' ')))[:-1]
-    cost[i] = inputList[0]
+    information = list(map(int, input().split()))
+    buildTime[i] = information[0]
 
-    for j in range(1, len(inputList)):
-        building[inputList[j]].append(i)
-        indegree[i] += 1
+    for info in information[1:-1]:
+        building[info].append(i)
+        D[i] += 1
 
-# print(building)
-# print(cost)
-# print(indegree)
-
-queue = deque()
+myque = deque()
 
 for i in range(1, N + 1):
-    if indegree[i] == 0:  # 제약이 없으면
-        queue.append(i)
+    if D[i] == 0:
+        answer[i] = buildTime[i]
+        myque.append(i)
 
-result = [0] * (N + 1)
-
-while queue:
-    now = queue.popleft()
+while myque:
+    now = myque.popleft()
 
     for next in building[now]:
-        indegree[next] -= 1
-        # 시간 업데이트
-        result[next] = max(result[next], result[now] + cost[now])
-        if indegree[next] == 0:
-            queue.append(next)
+        D[next] -= 1
+        answer[next] = max(answer[next], answer[now] + buildTime[next])  # answer 수정
+        if D[next] == 0:
+            # myque에 넣고
+            myque.append(next)
 
-# print("result", result)
-for i in range(1, N + 1):
-    print(result[i] + cost[i])
+    # print(answer)
+
+for ans in answer[1:]:
+    print(ans)
