@@ -30,7 +30,7 @@ def dijkstra(start):
 
         visited[now_node] = True
 
-        for next, weight in graph[now_node]:
+        for next, weight in graph[now_node]: # myque에 데이터 넣는 역할
             if not visited[next]:
                 if distance[next] > distance[now_node] + weight:
                     distance[next] = distance[now_node] + weight
