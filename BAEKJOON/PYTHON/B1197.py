@@ -7,43 +7,41 @@ from queue import PriorityQueue
 input = sys.stdin.readline
 
 V, E = map(int, input().split())
-weight = [[] for _ in range(V)]
-parent = [0] * (V + 1)
 pq = PriorityQueue()
-
-for i in range(1, V + 1):
-    parent[i] = i
+parent = [0] * (V + 1)
 
 for _ in range(E):
     A, B, C = map(int, input().split())
     pq.put((C, A, B))
 
+for i in range(1, V + 1):
+    parent[i] = i
 
-def find(a):
-    if a == parent[a]:
+useEdge = 0
+answer = 0
+
+
+def find(a):  # 부모 찾아주는 함수
+    if parent[a] == a:
         return a
     else:
         parent[a] = find(parent[a])
         return parent[a]
 
 
-def union(a, b):
+def union(a, b):  # 각각 부모를 찾아서 그 부모의 참조를 변경
     a = find(a)
     b = find(b)
-
     if a != b:
         parent[b] = a
 
-
-useEdge = 0
-result = 0
 
 while useEdge < V - 1:
     w, s, e = pq.get()
 
     if find(s) != find(e):
         union(s, e)
+        answer += w
         useEdge += 1
-        result += w
 
-print(result)
+print(answer)
