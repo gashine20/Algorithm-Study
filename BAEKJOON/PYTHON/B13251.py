@@ -7,26 +7,22 @@ K = int(input())
 
 total = 0
 
-for c in color:
-    total += c
-
-T = [[0 for _ in range(M + 1)] for _ in range(M + 1)]
-for i in range(M + 1):
-    T[i][0] = 1
-    T[i][i] = 1
-    T[i][1] = i
-
-for i in range(1, M):
-    for j in range(1, M):
-        T[i][j] = T[i - 1][j] + T[i - 1][j - 1]
-
-for t in T:
-    print(t)
-
-totalChance = T[total][K]
+totalChance = 0
 pickChance = 0
 
 for c in color:
-    pickChance += T[c][K]
+    total += c
 
-result = pickChance / totalChance
+ans = 0
+probability = [1] * 51
+
+for i in range(M):
+    if color[i] < K:
+        continue
+
+    for k in range(K):
+        probability[i] = probability[i] * (color[i] - k) / (total - k)
+
+    ans += probability[i]
+
+print(ans)
