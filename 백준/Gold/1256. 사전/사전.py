@@ -1,30 +1,30 @@
-# 조합
-
-import sys
-
-input = sys.stdin.readline
+# 사전
 
 N, M, K = map(int, input().split())
-D = [[0 for _ in range(202)] for _ in range(202)]
 
-# 조합 테이블 만들기
-for i in range(0, 201):
-    for j in range(0, i + 1):
-        if j == 0 or j == i:
-            D[i][j] = 1
-        else:
-            D[i][j] = D[i - 1][j] + D[i - 1][j - 1]
-            if D[i][j] > 1000000000:
-                D[i][j] = 1000000001
+# (N+M) C (K) = 사전에 수록되어 있는 문자열 개수
 
-if D[N + M][M] < K:
-    print(-1)
+D = [[0 for _ in range(N + M + 1)] for _ in range(N + M + 1)]
+
+for i in range(N + M + 1):
+    D[i][1] = i
+    D[i][0] = 1
+    D[i][i] = 1
+
+for i in range(1, N + M + 1):
+    for j in range(1, N + M + 1):
+        D[i][j] = D[i - 1][j] + D[i - 1][j - 1]
+
+T = D[N + M][M]  # 모든 경우의 수
+
+if T < K:
+    print("-1")
 else:
     while not (N == 0 and M == 0):
-        if D[N - 1 + M][M] >= K:  # a 확정
+        if D[N - 1 + M][M] >= K:
             print("a", end="")
             N -= 1
-        else:  # z 확정
+        else:
             print("z", end="")
             K -= D[N - 1 + M][M]
             M -= 1
