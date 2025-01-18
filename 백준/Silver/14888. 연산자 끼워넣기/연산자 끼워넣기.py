@@ -1,32 +1,42 @@
-# 연산자 끼워넣기
-# + - x / 순서
+# 연사자 끼워넣기
+
+from itertools import permutations
+import sys
 
 N = int(input())
-numbers = list(map(int, input().split()))
-oper = list(map(int, input().split()))
+num = list(map(int, input().split()))
+operator = list(map(int, input().split()))
+op = []
 
-maximum = -1e9
-minimum = 1e9
+for i in range(len(operator)):
+    for j in range(operator[i]):
+        op.append(i)
 
-
-def dfs(depth, total, plus, minus, multiply, divide):
-    global maximum, minimum
-
-    if depth == N:
-        maximum = max(total, maximum)
-        minimum = min(total, minimum)
-
-    if plus:
-        dfs(depth + 1, total + numbers[depth], plus - 1, minus, multiply, divide)
-    if minus:
-        dfs(depth + 1, total - numbers[depth], plus, minus - 1, multiply, divide)
-    if multiply:
-        dfs(depth + 1, total * numbers[depth], plus, minus, multiply - 1, divide)
-    if divide:
-        dfs(depth + 1, int(total / numbers[depth]), plus, minus, multiply, divide - 1)
+max_result = -1 * sys.maxsize
+min_result = sys.maxsize
 
 
-dfs(1, numbers[0], oper[0], oper[1], oper[2], oper[3])
+def calculate(a, b, index):
+    if index == 0:
+        return a + b
+    elif index == 1:
+        return a - b
+    elif index == 2:
+        return a * b
+    elif index == 3:
+        if a < 0 < b:
+            a = -1 * a
+            return -1 * (a // b)
+        return a // b
 
-print(maximum)
-print(minimum)
+
+for indexes in permutations(op, N-1):
+    result = num[0]
+    for i in range(1, len(num)):
+        result = calculate(result, num[i], indexes[i - 1])
+
+    max_result = max(max_result, result)
+    min_result = min(min_result, result)
+
+print(max_result)
+print(min_result)
