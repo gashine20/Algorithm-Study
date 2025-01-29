@@ -1,19 +1,14 @@
 # 1로 만들기
 
 N = int(input())
+A = [0] * (N + 1)  # 1을 만들기 위해서 연산해야하는 경우의수
+A[1] = 0
 
-D = [0] * 1000001
-D[1] = 0
-D[2] = 1
-D[3] = 1
-
-for i in range(4, 1000001):
-    D[i] = 1 + D[i - 1]
-
-    if i % 2 == 0:
-        D[i] = min(D[i], 1 + D[int(i / 2)])
-
+for i in range(2, N + 1):
+    A[i] = A[i - 1] + 1
     if i % 3 == 0:
-        D[i] = min(D[i], 1 + D[int(i / 3)])
+        A[i] = min(A[i], 1 + A[i // 3])
+    if i % 2 == 0:
+        A[i] = min(A[i], 1 + A[i // 2])
 
-print(D[N])
+print(A[N])
