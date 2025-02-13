@@ -1,47 +1,45 @@
 # DFS와 BFS
-# 깊이 탐색 - 재귀, 너비 탐색 - 큐, 선입선출
-
 from collections import deque
 import sys
 
-sys.setrecursionlimit(10000)
+input = sys.stdin.readline
 
 N, M, V = map(int, input().split())
-
-node = [[] for _ in range(N + 1)]
 visited = [False] * (N + 1)
-myque = deque()
+graph = [[] for _ in range(N + 1)]
 
 for _ in range(M):
     s, e = map(int, input().split())
-    node[s].append(e)
-    node[e].append(s)
+    graph[s].append(e)
+    graph[e].append(s)
 
 for i in range(1, N + 1):
-    node[i].sort()
+    graph[i].sort()
 
 
-def dfs(start):
-    print(start, end=" ")
-    visited[start] = True
+def dfs(v):
+    print(v, end=" ")
+    visited[v] = True
 
-    for next in node[start]:
+    for next in graph[v]:
         if not visited[next]:
             dfs(next)
 
 
-def bfs(start):
-    visited[start] = True
-    myque.append(start)
+queue = deque()
 
-    while myque:
-        now = myque.popleft()
+
+def bfs(v):
+    visited[v] = True
+    queue.append(v)
+    while queue:
+        now = queue.popleft()
         print(now, end=" ")
 
-        for next in node[now]:
+        for next in graph[now]:
             if not visited[next]:
                 visited[next] = True
-                myque.append(next)
+                queue.append(next)
 
 
 dfs(V)
