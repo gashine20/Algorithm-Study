@@ -1,6 +1,6 @@
 # [level 4] FrontEnd 개발자 찾기 - 276035 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/276035?language=mysql) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/276035) 
 
 ### 성능 요약
 
@@ -12,11 +12,11 @@
 
 ### 채점결과
 
-합계: 100.0 / 100.0
+합계: 72.0 / 100.0
 
 ### 제출 일자
 
-2024년 02월 23일 18:49:22
+2025년 02월 21일 18:24:50
 
 ### 문제 설명
 
