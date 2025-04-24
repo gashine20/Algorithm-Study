@@ -2,41 +2,43 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] priorities, int location) {
-        ArrayList<int[]> list = new ArrayList<>(); // {location, priority}
-        ArrayList<Integer> result = new ArrayList<>();
+        Queue<Process> queue = new LinkedList<>();
+        int count = 0;
         
-        for(int i = 0 ; i < priorities.length; i++){
-            int[] array = new int[2];
-            array[0] = i;
-            array[1] = priorities[i];
-            list.add(array);
+        for(int i = 0; i < priorities.length; i++){
+            queue.add(new Process(i, priorities[i]));
         }
         
-        while(list.size()!=0){
-            int[] now = list.get(0);
-            int count = 0;
-            list.remove(0);
-            for(int i = 0; i < list.size(); i++){ // 대기중인 프로세스 중 우선순위가 더 높은 프로세스가 있는 경우
-                int[] next = list.get(i);
-                count += 1;
-                if(now[1] < next[1]){ 
-                    // System.out.println("now:" + now[1] + " < " + "next:" + next[1]);
-                    list.add(now);
+        while(!queue.isEmpty()){
+            Process now = queue.poll();
+            boolean hasHighPriority = false;
+            
+            for(Process p: queue){
+                if(now.priority < p.priority){
+                    hasHighPriority = true;
                     break;
                 }
             }
-            // 우선순위 더 높은 프로세스가 없는경우
-            if(count == list.size()){
-                result.add(now[0]); // location 
-            }
-            if(list.size() == 0){ // 마지막꺼라면
-                result.add(now[0]);
-            }
             
+            if(hasHighPriority){
+                queue.add(now);
+            } else{
+                count += 1;
+                if(now.id == location){
+                    return count;
+                }
+            }
         }
-        // System.out.println(result);
-        int answer = result.indexOf(location) + 1;
+        return count;
+    }
+    
+    class Process{
+        int id;
+        int priority;
         
-        return answer;
+        Process(int id, int priority){
+            this.id = id;
+            this.priority = priority;
+        }
     }
 }
