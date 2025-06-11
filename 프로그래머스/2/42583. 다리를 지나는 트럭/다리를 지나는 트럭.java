@@ -6,24 +6,22 @@ class Solution {
         Queue<Integer> queue = new LinkedList<>();
         
         int index = 0;
-        int totalWeight = truck_weights[index];
-        queue.add(truck_weights[index++]);
+        int totalWeight = 0;
+        for(int i = 0; i < bridge_length; i++){
+            queue.add(0); // bridge_length 만큼 queue에 0 add
+        }
         
-        while(totalWeight != 0){
-            answer+=1;
+        while(!queue.isEmpty()){
+            answer++;
             
-            if(queue.size() == bridge_length){ // 다리를 지난 트럭 꺼내기
-                int now = queue.poll();
-                totalWeight -= now;
-            }
+            int exited = queue.poll();
+            totalWeight -= exited;
             
-            if(index < truck_weights.length && totalWeight + truck_weights[index] <= weight){ // 최대 길이보다 작고, 최대 무게보다 작은 경우
-                if(queue.size() < bridge_length){
+            if (index < truck_weights.length) {
+                if (totalWeight + truck_weights[index] <= weight) {
                     totalWeight += truck_weights[index];
                     queue.add(truck_weights[index++]);
-                }
-            } else {
-                if(queue.size() < bridge_length){
+                } else {
                     queue.add(0);
                 }
             }
@@ -31,6 +29,6 @@ class Solution {
         }
         
         
-        return answer+1;
+        return answer;
     }
 }
