@@ -2,7 +2,7 @@ class Solution {
     public int[] foundTileSize(int totalTile, int brown){
         for(int i=1; i < Math.sqrt(totalTile)+1; i++){
             if(totalTile % i == 0){
-                int j = totalTile / i;
+                int j = (int)(totalTile / i);
                 int countBrown = i*2 + j*2 -4;
                 if(brown == countBrown){
                     int[] arr = {j, i};
