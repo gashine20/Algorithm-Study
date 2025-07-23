@@ -1,9 +1,11 @@
+import math
+
 def solution(progresses, speeds):
     answer = []
     days = []
     
     for progress, speed in zip(progresses, speeds):
-        day = (100-progress) // speed if (100-progress) % speed == 0 else (100-progress) // speed + 1
+        day = math.ceil((100-progress) / speed)
         days.append(day)
         
     before = days[0]
