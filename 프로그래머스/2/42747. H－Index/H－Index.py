@@ -1,9 +1,7 @@
 def solution(citations):
     answer = 0
     n = len(citations)
-    max_value = max(citations)
-    min_value = min(citations)
-    
+    max_value = max(citations)    
     
     for i in range(0, max_value+1):
         up = 0
