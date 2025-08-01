@@ -1,40 +1,26 @@
+from itertools import permutations
 import math
 
 def solution(numbers):
-    def isPrime(num):
-        num = int(num)
-        
-        if num == 0 or num == 1:
-            return False
-        if num == 2:
-            return True
-        
+    answer = 0
+    
+    def is_prime(num):
+        if num == 0 or num == 1: return False
+        if num == 2 : return True
+            
         for i in range(2, int(math.sqrt(num))+1):
-            if num % i == 0:
-                return False
+            if num % i == 0: return False
         
         return True
     
-    numbers_list = [n for n in numbers]
-    print(numbers_list)
-    n = len(numbers_list)
-    used = [False] * n
+    numbers = list(numbers)
+    number_set = set()
     
-    # 백트래킹
-    result = set()
+    for i in range(1, len(numbers)+1):
+        for number in permutations(numbers,i):
+            num = ''.join(number)
+            number_set.add(int(num))
     
-    def makeNumber(current):
-        if current:
-            if isPrime(current):
-                result.add(int(current))
-        
-        for i in range(n):
-            if not used[i]:
-                used[i] = True
-                makeNumber(current+numbers_list[i])
-                used[i] = False
-            
+    answer = [n for n in list(number_set) if is_prime(n)]
     
-    makeNumber('')
-    
-    return len(result)
+    return len(answer)
