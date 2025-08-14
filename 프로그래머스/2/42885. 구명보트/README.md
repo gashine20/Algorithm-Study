@@ -1,10 +1,10 @@
 # [level 2] 구명보트 - 42885 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42885) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42885?language=python3) 
 
 ### 성능 요약
 
-메모리: 58.4 MB, 시간: 14.62 ms
+메모리: 9.58 MB, 시간: 11.36 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 07월 11일 22:47:37
+2025년 08월 15일 01:11:06
 
 ### 문제 설명
 
