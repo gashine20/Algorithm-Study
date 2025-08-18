@@ -15,8 +15,8 @@ def solution(n):
         
         return True
         
-    for i in range(n+1):
+    for i in range(3, n+1, 2):
         if isPrime(i):
             answer += 1
             
-    return answer
+    return answer + 1
