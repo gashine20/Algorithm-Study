@@ -1,10 +1,9 @@
-def solution(t, p):
+def solution(t,p):
     answer = 0
-    k = len(p)
+    n, k= len(t), len(p) 
     
-    for i in range(len(t)-k+1):
-        a = int(t[i:i+k])
-        if a <= int(p):
-            answer+=1
-    
+    for i in range(n-k+1):
+        if int(t[i: i+k]) <= int(p):
+            answer += 1
+            
     return answer
