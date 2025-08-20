@@ -1,16 +1,11 @@
 import heapq
 
 def solution(emergency):
-    answer = [0] * len(emergency)
-    # 해당 환자가 몇 번째로 진료 받는지
-    hall = []
-    for i, e in enumerate(emergency):
-        heapq.heappush(hall, (-e, i))
+    answer = []
+    emergency_copy = emergency[:]
+    emergency_copy.sort(reverse=True)
     
-    order = 1
-    while hall:
-        e, i = heapq.heappop(hall)
-        answer[i] = order
-        order += 1
+    for i in range(len(emergency)):
+        answer.append(emergency_copy.index(emergency[i])+1)
     
     return answer
