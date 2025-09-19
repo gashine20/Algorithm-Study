@@ -2,13 +2,8 @@ import java.util.*;
 
 class Solution {
     public int solution(int n) {
-        int answer = 0;
         String threeDemical = convertThreeDemical(n);
-        for(int i = 0; i < threeDemical.length(); i++){
-            answer += Character.getNumericValue(threeDemical.charAt(i)) * Math.pow(3, i);
-        }
-        
-        return answer;
+        return Integer.parseInt(threeDemical, 3);
     }
     
     public String convertThreeDemical(int n){
@@ -17,6 +12,6 @@ class Solution {
             sb.append(n%3);
             n /= 3;
         }
-        return sb.reverse().toString();
+        return sb.toString();
     }
 }
