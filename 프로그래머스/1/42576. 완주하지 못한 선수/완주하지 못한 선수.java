@@ -5,20 +5,20 @@ class Solution {
         String answer = "";
         HashMap<String, Integer> map = new HashMap<>();
         
-        for(String name: participant){
-            map.put(name, map.getOrDefault(name,0)+1);
+        for(String people : participant){
+            map.put(people, map.getOrDefault(people, 0) + 1);
         }
         
-        for(String name: completion){
-            map.put(name, map.get(name)-1);
+        for(String people : completion){
+            map.put(people, map.get(people) - 1);
         }
         
-        for(String key: map.keySet()){
-            if(map.get(key) != 0){
-                answer = key;
-                break;
+        for(String people : map.keySet()){
+            if(map.get(people) != 0) {
+                return people;
             }
         }
+        
         return answer;
     }
 }
