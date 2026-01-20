@@ -1,62 +1,67 @@
 import java.util.*;
 
 class Solution {
-    public int bfs(ArrayList<ArrayList<Integer>> graph, int start, boolean[] visited){
-        int count = 0;
-        Queue<Integer> queue = new LinkedList<>();
-        queue.offer(start);
+    public int solution(int n, int[][] wires) {
+        int answer = n;
         
-        while(!queue.isEmpty()){
-            int now = queue.poll();
-            visited[now] = true;
+        for(int q = 0; q < wires.length; q++){
+            // 초기화
+            ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+            for(int i = 0; i <= n; i++){
+                list.add(new ArrayList<>());
+            }
+            boolean[] visited = new boolean[n+1];
             
-            for(int next: graph.get(now)){
+            for(int j = 0; j < wires.length; j++){
+                if(q == j){
+                    continue;
+                }
+                
+                // 값 부여
+                int x = wires[j][0];
+                int y = wires[j][1];
+
+                list.get(x).add(y);
+                list.get(y).add(x);
+                
+            }
+                        
+            // bfs
+            int diff = 0;
+            for(int i = 1; i <= n; i++){
+                if(!visited[i]){
+                    int result = bfs(i, list, visited);
+                    // System.out.println(result);
+                    diff = Math.abs(result - diff);
+                }
+            }
+                
+            answer = Math.min(answer, diff);
+        }
+        
+
+        return answer;
+    }
+    
+    public int bfs(int start, ArrayList<ArrayList<Integer>> list, boolean[] visited){
+        int count = 1;
+        Queue<Integer> queue = new LinkedList<>();
+        
+        queue.add(start);
+        visited[start] = true;
+        
+        while(queue.size()>0){
+            int now = queue.poll();
+            
+            for(int next: list.get(now)){
                 if(!visited[next]){
-                    queue.offer(next);
-                    count++;
+                    queue.add(next);
+                    count+=1;
+                    visited[next] =true;
                 }
             }
         }
-        
+
         return count;
-    }
-    
-    
-    public int countGap(ArrayList<ArrayList<Integer>> graph, int n){
-        boolean[] visited = new boolean[n+1];
-        int[] results = new int[2];
-        int index = 0;
-        
-        //두 전력망 차이 계산
-        for(int i = 1; i <= n; i++){
-            if(!visited[i]){
-                int result = bfs(graph, i, visited);
-                results[index++] = result;
-            }
-        }
-        
-        return Math.abs(results[0]-results[1]);
-    }
-    
-    
-    public int solution(int n, int[][] wires) {
-        int answer = Integer.MAX_VALUE;
-        
-        for(int i = 0; i < wires.length; i++){
-            ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-            for (int p = 0; p <= n; p++) { // n+1 크기
-                graph.add(new ArrayList<>());
-            }
-            
-            for(int j = 0; j < wires.length; j++){
-                if(i == j){continue;}
-                graph.get(wires[j][0]).add(wires[j][1]);
-                graph.get(wires[j][1]).add(wires[j][0]);
-            }
-            int result = countGap(graph, n);
-            answer = Math.min(answer, result);
-        }
-        
-        return answer;
     }
 }
