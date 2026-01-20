@@ -27,14 +27,8 @@ class Solution {
             }
                         
             // bfs
-            int diff = 0;
-            for(int i = 1; i <= n; i++){
-                if(!visited[i]){
-                    int result = bfs(i, list, visited);
-                    // System.out.println(result);
-                    diff = Math.abs(result - diff);
-                }
-            }
+            int result = bfs(1, list, visited);
+            int diff = Math.abs(result - (n-result));            
                 
             answer = Math.min(answer, diff);
         }
