@@ -1,0 +1,23 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String input = br.readLine();
+
+		int answer = 0;
+		char cc = input.charAt(0);
+		for(char c : input.toCharArray()){
+			if(c == ' ' && cc != ' '){
+				answer++;
+			}
+			cc = c;
+		}
+		if(cc != ' '){
+			answer++;
+		}
+
+		System.out.println(answer);
+	}
+}
