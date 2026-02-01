@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		HashMap<Integer, Integer> map = new HashMap<>();
+
+		// hashmap
+		for(int i = 0; i < 5; i++) {
+			int n = Integer.parseInt(st.nextToken());
+			map.put(n, map.getOrDefault(n, 0) + 1);
+		}
+		
+		// 1 가위, 2 바위 , 3 보
+		// 1 vs 2 = 2, 1 vs 3 = 1, 2 vs 3 = 3
+		int answer = 0;
+		// size() == 1 && size() == 3 return 0
+		if(map.size() == 2) {// size() == 2 if/else
+			if(map.containsKey(1) && map.containsKey(2)){
+				answer = map.get(2);
+			} else if(map.containsKey(2) && map.containsKey(3)){
+				answer = map.get(3);
+			} else if(map.containsKey(1) && map.containsKey(3)){
+				answer = map.get(1);
+			}
+		} 
+
+		System.out.println(answer);
+	}
+}
