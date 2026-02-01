@@ -1,0 +1,24 @@
+import java.io.*;
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int n = Integer.parseInt(br.readLine());
+		String input = br.readLine();
+		StringBuilder sb = new StringBuilder();
+
+		
+		for(int i = 0; i < n; i++) {
+			char c = input.charAt(i);			
+			// 소문자이면 대문자로
+			if(Character.isLowerCase(c)) {
+				sb.append(Character.toUpperCase(c));
+			} else { // 대문자 이면 소문자로
+				sb.append(Character.toLowerCase(c));
+			}
+			
+		}
+
+		System.out.println(sb.toString());
+		
+	}
+}
