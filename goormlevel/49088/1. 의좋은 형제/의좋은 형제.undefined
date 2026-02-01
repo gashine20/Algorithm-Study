@@ -1,0 +1,39 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		
+		st = new StringTokenizer(br.readLine());
+		int goorm = Integer.parseInt(st.nextToken());
+		int baram = Integer.parseInt(st.nextToken());
+		int D = Integer.parseInt(br.readLine());
+
+		// D번째 날 두 형제 식량 얼마나 남아있을까
+		for(int i = 0; i < D; i++) {
+			int pos = 0;
+			// i 짝수면 구름 -> 바람
+			if(i % 2 == 0){
+				if(goorm % 2 != 0){ // 양이 홀수면 +1
+					pos = goorm / 2 + 1;
+				} else { 		// 서로 반씩 나눠줌
+					pos = goorm / 2; 
+				}
+				goorm -= pos;
+				baram += pos;
+			} else { // 홀수면 바람 -> 구름
+				if(baram % 2 != 0){ // 양이 홀수면 +1
+					pos = baram / 2 + 1;
+				} else { 		// 서로 반씩 나눠줌
+					pos = baram / 2; 
+				}
+				baram -= pos;
+				goorm += pos;
+			}
+		}
+
+		System.out.println(goorm + " " + baram);
+	}
+}
