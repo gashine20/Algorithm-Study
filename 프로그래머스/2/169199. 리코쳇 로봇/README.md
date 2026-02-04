@@ -1,10 +1,10 @@
 # [level 2] 리코쳇 로봇 - 169199 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/169199) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/169199?language=java) 
 
 ### 성능 요약
 
-메모리: 9.34 MB, 시간: 7.16 ms
+메모리: 73.1 MB, 시간: 2.71 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 08월 17일 01:44:48
+2026년 02월 04일 12:36:06
 
 ### 문제 설명
 
