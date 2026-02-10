@@ -1,61 +1,49 @@
 import java.util.*;
 
 class Solution {
-    public void printMap(int[][] maps){
-        for(int[] map : maps){
-            System.out.println(Arrays.toString(map));
-        }
+    public int solution(int[][] maps) {        
+        // dp 로도 풀 수 있는데
+        int answer = bfs(maps);
         
-        System.out.println();
+        return answer;
     }
     
-    public int solution(int[][] maps) {
-        int answer = 0;
+    public int bfs(int[][] maps) {
         int n = maps.length;
         int m = maps[0].length;
-        
-        int[] nx = {1, -1, 0, 0};
-        int[] ny = {0, 0, 1, -1};
-        Queue<int[]> queue = new LinkedList<>();
         boolean[][] visited = new boolean[n][m];
+        Queue<int[]> queue = new LinkedList<>();
         
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++){
-                if(maps[i][j] == 1){
-                    maps[i][j] = Integer.MAX_VALUE;
-                }
-            }
-        }
-        maps[0][0] = 1;
-
-        queue.offer(new int[]{0,0});
+        int[] dx = {0, 0, 1, -1};
+        int[] dy = {1, -1, 0, 0};
+        
+        queue.offer(new int[]{0, 0, 1});
         visited[0][0] = true;
-        while(!queue.isEmpty()){
-            int[] pos = queue.poll();
-            int x = pos[0];
-            int y = pos[1];
+        
+        while(!queue.isEmpty()) {
+            int[] now = queue.poll();
+            int x = now[0];
+            int y = now[1];
+            int c = now[2];
             
-            for(int i = 0; i < 4; i++){
-                int dx = x + nx[i];
-                int dy = y + ny[i];
-                
-                if(dx < n && dx >=0 && dy < m && dy >=0){
-                    if(maps[dx][dy] != 0 && !visited[dx][dy]){
-                        maps[dx][dy] = Math.min(maps[dx][dy] ,maps[x][y] + 1);
-                        queue.offer(new int[]{dx,dy});
-                        visited[dx][dy] = true;
+            if(x == n-1 && y == m-1) { // 도착
+                return c;
+            }
+            
+            for(int i = 0; i < 4; i++) {
+                int nx = x + dx[i];
+                int ny = y + dy[i];
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m) {
+                    if(maps[nx][ny]== 1 && !visited[nx][ny]) { // 길이고, 방문한적없으면
+                        queue.offer(new int[]{nx, ny, c+1});
+                        visited[nx][ny] = true;
                     }
                 }
             }
-            
-            //printMap(maps);
         }
         
-        if(maps[n-1][m-1] == Integer.MAX_VALUE){
-            return -1;
-        }
+        return -1;
         
-        answer = maps[n-1][m-1];
-        return answer;
+        
     }
 }
